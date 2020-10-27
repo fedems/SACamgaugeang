@@ -108,8 +108,8 @@
         *  listeners.
         */
         function initClient() {
-            var API_KEY = ''; // TODO: Update placeholder with desired API key.
-            var CLIENT_ID = ''; // TODO: Update placeholder with desired client ID.
+            var API_KEY = 'AIzaSyBsBX_FVcjLY0b8DRYADqQhFDWLV8194XI'; // TODO: Update placeholder with desired API key.
+            var CLIENT_ID = '655845226828-seio8gfe4oh5tegsv05vl2irnr1280di.apps.googleusercontent.com'; // TODO: Update placeholder with desired client ID.
 
             // TODO: Authorize using one of the following scopes:
             //   'https://www.googleapis.com/auth/drive'
@@ -134,7 +134,7 @@
         function makeApiCall_Get() {
             var params = {
                 // The ID of the spreadsheet to retrieve data from.
-                spreadsheetId: '', // TODO: Update placeholder value.
+                spreadsheetId: '1tdoEu_1D-0-k2pJJGqfdS7-no1Jk_AEX1KjqC0R4GSI', // TODO: Update placeholder value.
 
                 // The A1 notation of the values to retrieve.
                 range: 'Data!B:C', // TODO: Update placeholder value.
