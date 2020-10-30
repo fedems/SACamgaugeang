@@ -37,12 +37,11 @@
     // Create the chart
     function Amchart(id, divid, value, title, firsttime) {
 
-        var data = {};
-        if (value !== "") {
-            data = JSON.parse(value);
-            console.log(data);
-        }
-
+//        var data = {};
+//        if (value !== "") {
+//            data = JSON.parse(value);
+//            console.log(data);
+//        }
 
         if(firsttime === 0) {
 			// Themes begin
@@ -118,6 +117,7 @@
 
 			// Create chart instance
 			var chart = am4core.create(divid, am4charts.GaugeChart);
+            
             chart.hiddenState.properties.opacity = 0;
             chart.fontSize = 11;
             chart.innerRadius = am4core.percent(80);
@@ -128,6 +128,7 @@
              */
 
             var axis = chart.xAxes.push(new am4charts.ValueAxis());
+            
             axis.min = chartMin;
             axis.max = chartMax;
             axis.strictMinMax = true;
@@ -147,6 +148,7 @@
              */
 
             var axis2 = chart.xAxes.push(new am4charts.ValueAxis());
+            
             axis2.min = chartMin;
             axis2.max = chartMax;
             axis2.strictMinMax = true;
