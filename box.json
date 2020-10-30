@@ -12,7 +12,7 @@
 		{
 			"kind": "main",
 			"tag": "com-fd-googlesheetsstock",
-			"url": "https://github.com/fedems/SAC/blob/main/box/box.js",
+			"url": "https://github.com/fedems/SACGSheet/blob/main/box/box.js",
 			"integrity": "",
 			"ignoreIntegrity": true
 		}

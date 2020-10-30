@@ -14,13 +14,13 @@
 	`;
 
 	//https://apis.google.com/js/api.js
-    const googlesheetsjs = "https://fedems.github.io/SACamcharts/box/api.js";
+    //const googlesheetsjs = "https://fedems.github.io/SACamcharts/box/api.js";
     //https://www.amcharts.com/lib/4/core.js
-    const amchartscorejs = "https://fedems.github.io/SACamcharts/box/core.js";
+    const amchartscorejs = "https://github.com/fedems/SACGSheet/blob/main/box/core.js";
     //https://www.amcharts.com/lib/4/charts.js
-    const amchartschartsjs = "https://fedems.github.io/SACamcharts/box/charts.js";
+    const amchartschartsjs = "https://github.com/fedems/SACGSheet/blob/main/box/charts.js";
     //https://www.amcharts.com/lib/4/themes/animated.js
-    const amchartsanimatedjs = "https://fedems.github.io/SACamcharts/box/animated.js";
+    const amchartsanimatedjs = "https://github.com/fedems/SACGSheet/blob/main/box/animated.js";
 
 	function loadScript(src) {
 	  return new Promise(function(resolve, reject) {
@@ -100,153 +100,153 @@
 
     };
 
-    // Google Sheets
-    function GoogleSheets(divid, text_val, formula_val, id, firsttime) {
-
-        /**
-        *  Initializes the API client library and sets up sign-in state
-        *  listeners.
-        */
-        function initClient() {
-            var API_KEY = 'AIzaSyBsBX_FVcjLY0b8DRYADqQhFDWLV8194XI'; // TODO: Update placeholder with desired API key.
-            var CLIENT_ID = '655845226828-seio8gfe4oh5tegsv05vl2irnr1280di.apps.googleusercontent.com'; // TODO: Update placeholder with desired client ID.
-
-            // TODO: Authorize using one of the following scopes:
-            //   'https://www.googleapis.com/auth/drive'
-            //   'https://www.googleapis.com/auth/drive.file'
-            //   'https://www.googleapis.com/auth/spreadsheets'
-            var SCOPE = 'https://www.googleapis.com/auth/spreadsheets';
-
-            gapi.client.init({
-                'apiKey': API_KEY,
-                'clientId': CLIENT_ID,
-                'scope': SCOPE,
-                'discoveryDocs': ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
-            }).then(function() {
-                // Listen for sign-in state changes.
-                gapi.auth2.getAuthInstance().isSignedIn.listen(updateSignInStatus);
-                // Handle the initial sign-in state.
-                updateSignInStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-            });
-        }
-
-
-        function makeApiCall_Get() {
-            var params = {
-                // The ID of the spreadsheet to retrieve data from.
-                spreadsheetId: '1tdoEu_1D-0-k2pJJGqfdS7-no1Jk_AEX1KjqC0R4GSI', // TODO: Update placeholder value.
-
-                // The A1 notation of the values to retrieve.
-                range: 'Data!B:C', // TODO: Update placeholder value.
-
-                // How values should be represented in the output.
-                // The default render option is ValueRenderOption.FORMATTED_VALUE.
-                valueRenderOption: 'FORMATTED_VALUE', // TODO: Update placeholder value.
-
-                // How dates, times, and durations should be represented in the output.
-                // This is ignored if value_render_option is
-                // FORMATTED_VALUE.
-                // The default dateTime render option is [DateTimeRenderOption.SERIAL_NUMBER].
-                dateTimeRenderOption: 'FORMATTED_STRING', // TODO: Update placeholder value.
-            };
-
-            var request = gapi.client.sheets.spreadsheets.values.get(params);
-            request.then(function(response) {
-                // TODO: Change code below to process the `response` object:
-                console.log(response.result.values);
-
-				if (typeof response.result.values !== 'undefined') {
-					var arraydata = [];
-					if (response.result.values.length > 0) {
-						for (i = 1; i < response.result.values.length; i++) {
-							//console.log(response.result.values[i]);
-							arraydata.push({
-								"date": response.result.values[i][0],
-								"value": response.result.values[i][1]
-							});
-						}
-					}
-					console.log(arraydata);
-					Amchart(id, divid, JSON.stringify(arraydata), formula_val, firsttime);
-				}
-
-            }, function(reason) {
-                console.error('error: ' + reason.result.error.message);
-            });
-        }
-
-        function makeApiCall_BatchUpdate() {
-            var params = {
-                // The ID of the spreadsheet to update.
-                spreadsheetId: '1tdoEu_1D-0-k2pJJGqfdS7-no1Jk_AEX1KjqC0R4GSI', // TODO: Update placeholder value.
-            };
-
-            var batchUpdateValuesRequestBody = {
-                // How the input data should be interpreted.
-                valueInputOption: 'USER_ENTERED', // TODO: Update placeholder value.
-
-                // The new values to apply to the spreadsheet.
-                data: [{
-                        "majorDimension": "ROWS",
-                        "range": "Data!A1",
-                        "values": [
-                            [
-                                text_val
-                            ]
-                        ]
-                    },
-                    {
-                        "majorDimension": "ROWS",
-                        "range": "Data!B1",
-                        "values": [
-                            [
-                                formula_val
-                            ]
-                        ]
-                    }
-                ] // TODO: Update placeholder value.
-                // TODO: Add desired properties to the request body.
-            };
-
-            var request = gapi.client.sheets.spreadsheets.values.batchUpdate(params, batchUpdateValuesRequestBody);
-            request.then(function(response) {
-                // TODO: Change code below to process the `response` object:
-                console.log(response.result);
-                makeApiCall_Get();
-            }, function(reason) {
-                console.error('error: ' + reason.result.error.message);
-            });
-        }
-
-
-        function handleClientLoad() {
-            gapi.load('client:auth2', initClient);
-        }
-
-        /**
-        *  Called when the signed in status changes, to update the UI
-        *  appropriately. After a sign-in, the API is called.
-        */
-        function updateSignInStatus(isSignedIn) {
-            if (isSignedIn) {
-                makeApiCall_BatchUpdate();
-            }
-        }
-
-        function handleSignInClick(event) {
-            gapi.auth2.getAuthInstance().signIn();
-        }
-
-        function handleSignOutClick(event) {
-            gapi.auth2.getAuthInstance().signOut();
-        }
-
-        handleClientLoad();
-    };
+//    // Google Sheets
+//    function GoogleSheets(divid, text_val, formula_val, id, firsttime) {
+//
+//        /**
+//        *  Initializes the API client library and sets up sign-in state
+//        *  listeners.
+//        */
+//        function initClient() {
+//            var API_KEY = ''; // TODO: Update placeholder with desired API key.
+//            var CLIENT_ID = ''; // TODO: Update placeholder with desired client ID.
+//
+//            // TODO: Authorize using one of the following scopes:
+//            //   'https://www.googleapis.com/auth/drive'
+//            //   'https://www.googleapis.com/auth/drive.file'
+//            //   'https://www.googleapis.com/auth/spreadsheets'
+//            var SCOPE = 'https://www.googleapis.com/auth/spreadsheets';
+//
+//            gapi.client.init({
+//                'apiKey': API_KEY,
+//                'clientId': CLIENT_ID,
+//                'scope': SCOPE,
+//                'discoveryDocs': ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
+//            }).then(function() {
+//                // Listen for sign-in state changes.
+//                gapi.auth2.getAuthInstance().isSignedIn.listen(updateSignInStatus);
+//                // Handle the initial sign-in state.
+//                updateSignInStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+//            });
+//        }
+//
+//
+//        function makeApiCall_Get() {
+//            var params = {
+//                // The ID of the spreadsheet to retrieve data from.
+//                spreadsheetId: '1tdoEu_1D-0-k2pJJGqfdS7-no1Jk_AEX1KjqC0R4GSI', // TODO: Update placeholder value.
+//
+//                // The A1 notation of the values to retrieve.
+//                range: 'Data!B:C', // TODO: Update placeholder value.
+//
+//                // How values should be represented in the output.
+//                // The default render option is ValueRenderOption.FORMATTED_VALUE.
+//                valueRenderOption: 'FORMATTED_VALUE', // TODO: Update placeholder value.
+//
+//                // How dates, times, and durations should be represented in the output.
+//                // This is ignored if value_render_option is
+//                // FORMATTED_VALUE.
+//                // The default dateTime render option is [DateTimeRenderOption.SERIAL_NUMBER].
+//                dateTimeRenderOption: 'FORMATTED_STRING', // TODO: Update placeholder value.
+//            };
+//
+//            var request = gapi.client.sheets.spreadsheets.values.get(params);
+//            request.then(function(response) {
+//                // TODO: Change code below to process the `response` object:
+//                console.log(response.result.values);
+//
+//				if (typeof response.result.values !== 'undefined') {
+//					var arraydata = [];
+//					if (response.result.values.length > 0) {
+//						for (i = 1; i < response.result.values.length; i++) {
+//							//console.log(response.result.values[i]);
+//							arraydata.push({
+//								"date": response.result.values[i][0],
+//								"value": response.result.values[i][1]
+//							});
+//						}
+//					}
+//					console.log(arraydata);
+//					Amchart(id, divid, JSON.stringify(arraydata), formula_val, firsttime);
+//				}
+//
+//            }, function(reason) {
+//                console.error('error: ' + reason.result.error.message);
+//            });
+//        }
+//
+//        function makeApiCall_BatchUpdate() {
+//            var params = {
+//                // The ID of the spreadsheet to update.
+//                spreadsheetId: '1tdoEu_1D-0-k2pJJGqfdS7-no1Jk_AEX1KjqC0R4GSI', // TODO: Update placeholder value.
+//            };
+//
+//            var batchUpdateValuesRequestBody = {
+//                // How the input data should be interpreted.
+//                valueInputOption: 'USER_ENTERED', // TODO: Update placeholder value.
+//
+//                // The new values to apply to the spreadsheet.
+//                data: [{
+//                        "majorDimension": "ROWS",
+//                        "range": "Data!A1",
+//                        "values": [
+//                            [
+//                                text_val
+//                            ]
+//                        ]
+//                    },
+//                    {
+//                        "majorDimension": "ROWS",
+//                        "range": "Data!B1",
+//                        "values": [
+//                            [
+//                                formula_val
+//                            ]
+//                        ]
+//                    }
+//                ] // TODO: Update placeholder value.
+//                // TODO: Add desired properties to the request body.
+//            };
+//
+//            var request = gapi.client.sheets.spreadsheets.values.batchUpdate(params, batchUpdateValuesRequestBody);
+//            request.then(function(response) {
+//                // TODO: Change code below to process the `response` object:
+//                console.log(response.result);
+//                makeApiCall_Get();
+//            }, function(reason) {
+//                console.error('error: ' + reason.result.error.message);
+//            });
+//        }
+//
+//
+//        function handleClientLoad() {
+//            gapi.load('client:auth2', initClient);
+//        }
+//
+//        /**
+//        *  Called when the signed in status changes, to update the UI
+//        *  appropriately. After a sign-in, the API is called.
+//        */
+//        function updateSignInStatus(isSignedIn) {
+//            if (isSignedIn) {
+//                makeApiCall_BatchUpdate();
+//            }
+//        }
+//
+//        function handleSignInClick(event) {
+//            gapi.auth2.getAuthInstance().signIn();
+//        }
+//
+//        function handleSignOutClick(event) {
+//            gapi.auth2.getAuthInstance().signOut();
+//        }
+//
+//        handleClientLoad();
+//    }; 
 
     function Draw(Ar, firsttime) {
         for (var i = 0; i < Ar.length; i++) {
-            GoogleSheets(Ar[i].div, Ar[i].value, Ar[i].formula, Ar[i].id, firsttime);
+//            GoogleSheets(Ar[i].div, Ar[i].value, Ar[i].formula, Ar[i].id, firsttime);
 			Amchart(Ar[i].id, Ar[i].div, Ar[i].value, "", firsttime)
         }
     };
@@ -333,7 +333,7 @@
 
 				async function LoadLibs() {
 					try {
-						await loadScript(googlesheetsjs);
+//						await loadScript(googlesheetsjs);
 						await loadScript(amchartscorejs);				
 						await loadScript(amchartschartsjs);				
 						await loadScript(amchartsanimatedjs);
@@ -363,7 +363,7 @@
 
                     if (foundIndex !== -1) {
                         console.log(Ar[foundIndex].div);
-                        GoogleSheets(Ar[foundIndex].div, value, formula, id, this._firstConnection);
+//                        GoogleSheets(Ar[foundIndex].div, value, formula, id, this._firstConnection);
 						Amchart(id, Ar[foundIndex].div, "", "", this._firstConnection)
                     }
                 }
@@ -376,4 +376,4 @@
         }
     }
     customElements.define("com-fd-googlesheetsstock", Box);
-})();u
+})();
