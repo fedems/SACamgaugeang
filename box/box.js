@@ -16,11 +16,11 @@
 	//https://apis.google.com/js/api.js
     //const googlesheetsjs = "https://fedems.github.io/SACamcharts/box/api.js";
     //https://www.amcharts.com/lib/4/core.js
-    const amchartscorejs = "https://github.com/fedems/SACGSheet/blob/main/box/core.js";
+    const amchartscorejs = "https://fedems.github.io/SACGSheet/box/core.js";
     //https://www.amcharts.com/lib/4/charts.js
-    const amchartschartsjs = "https://github.com/fedems/SACGSheet/blob/main/box/charts.js";
+    const amchartschartsjs = "https://fedems.github.io/SACGSheet/box/charts.js";
     //https://www.amcharts.com/lib/4/themes/animated.js
-    const amchartsanimatedjs = "https://github.com/fedems/SACGSheet/blob/main/box/animated.js";
+    const amchartsanimatedjs = "https://fedems.github.io/SACGSheet/box/animated.js";
 
 	function loadScript(src) {
 	  return new Promise(function(resolve, reject) {
