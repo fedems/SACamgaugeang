@@ -236,10 +236,10 @@
               label.fill = am4core.color(matchingGrade.color);
             })
             
-            setInterval(function() {
-                var value = chartMin + Math.random() * (chartMax - chartMin);
-                hand.showValue(value, 1000, am4core.ease.cubicOut);
-            }, 2000);
+//            setInterval(function() {
+//                var value = chartMin + Math.random() * (chartMax - chartMin);
+//                hand.showValue(value, 1000, am4core.ease.cubicOut);
+//            }, 2000);
 		  } 
           else {            	
             	var foundIndex = Ar.findIndex(x => x.id == id);
