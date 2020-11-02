@@ -1,9 +1,9 @@
 {
-	"id": "com.fd.amchartsgauge",
+	"id": "com.fd.amchartsgaugeang",
 	"version": "1.0.0",
-	"name": "amCharts demo aguja",
-	"description": "amCharts demo aguja",
-	"newInstancePrefix": "Amchartsgauge", 
+	"name": "amCharts demo aguja angular",
+	"description": "amCharts demo aguja angular",
+	"newInstancePrefix": "Amchartsgaugeang", 
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAC8ElEQVR42m2TXUjTYRTGnz8r577A5XToXEpzE2HNUBmWTiQo2WTRlESkCULgB2IgXYgXgqBIF91k5d0Qu0iFJIhJM0QRhxDCBL0QDBVR8QudotMpuc55cSDUCw/b4D2/9znPOZMikQj4JCQkYHJyEtXV1Tg8PFQ4HI7n+fn5lXK5XGMymYLFxcWBjIyMX0dHRzg7OxM1OTk5kG4CJiYm4Ha7KwnygQBpVITLy0ssLCzg9PQUNpvta2Zm5quTk5PwP4DExEQEAgHX8PCw3+l0ory8HMfHx1Cr1YhGo1haWhIgchXS6XQFVBITALYjSRLIqrq5uXlFq9WmtLS0CCi/zoCLiwtoNBrMzc1heXkZRUVF7+jBN9nZ2ZBCoZC4LJPJmurq6j719/fDbrdja2sL1DNWV1c5E/H94OAAi4uL0Ov1SEtLMxFgRdrY2AD1hFgs9nlqauql1+sVF7mAnTU2NoJCRFtbG87PzzE/P49wOAyz2dxusVjeSvw6W9zf3/dPT0+7qqqqwEknJyeDgBgfH0dPT49wuba2hr29PeGO+v+Zm5v7VAD4UCuD6+vr3pKSEigUCuzu7mJgYAA1NTWgl7CzswOlUikyYFmt1naScCAnRelyvdFo9KWmpoqCoaEhFBQUiFFxmORQfM7MzEClUqGiosJMQf5mQArpDoWiHhkZ+ULzNhNI7AWnfPPMzs4KUT7vKdjXDQ0NYICFxHM11tbWPuzo6HBTO7KysjIRJJ+rqyuMjY2JiRgMhm9dXV2ezs5OcF4MeEB6TLKT0qnney6XS7+9vX2L7bOTYDAoFo2D7e7uHtzc3GyiuxGanADcJz0iOUg2UlJWVpY6Ly9PRct1m1ZXKiws5Jfh9/vR29vLppykH3FAOombtV67YOBdko5vJiUliSLaPvh8vnBfXx8TPpJO4wAFSX39qSUZrgEcrpJk8ng8L0ZHR0HF31tbW5/FQ40DWDL+TfqD/xyaUH1paekT+i8M0o784HWOA/4CYzc88IugG2AAAAAASUVORK5CYII=",
 	"vendor": "FD",
 	"eula": "EULA",
@@ -11,8 +11,8 @@
 	"webcomponents": [
 		{
 			"kind": "main",
-			"tag": "com-fd-amchartsgauge",
-			"url": "https://fedems.github.io/SACGSheet/box/box.js",
+			"tag": "com-fd-amchartsgaugeang",
+			"url": "https://fedems.github.io/SACamgaugeang/box/box.js",
 			"integrity": "",
 			"ignoreIntegrity": true
 		}

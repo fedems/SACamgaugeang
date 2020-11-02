@@ -14,11 +14,11 @@
 	`;
 
     //https://www.amcharts.com/lib/4/core.js
-    const amchartscorejs = "https://fedems.github.io/SACGSheet/box/core.js";
+    const amchartscorejs = "https://fedems.github.io/SACamgaugeang/box/core.js";
     //https://www.amcharts.com/lib/4/charts.js
-    const amchartschartsjs = "https://fedems.github.io/SACGSheet/box/charts.js";
+    const amchartschartsjs = "https://fedems.github.io/SACamgaugeang/box/charts.js";
     //https://www.amcharts.com/lib/4/themes/animated.js
-    const amchartsanimatedjs = "https://fedems.github.io/SACGSheet/box/animated.js";
+    const amchartsanimatedjs = "https://fedems.github.io/SACamgaugeang/box/animated.js";
 
 	function loadScript(src) {
 	  return new Promise(function(resolve, reject) {
@@ -379,5 +379,5 @@
 			console.log("onCustomWidgetDestroy");
         }
     }
-    customElements.define("com-fd-amchartsgauge", Box);
+    customElements.define("com-fd-amchartsgaugeang", Box);
 })();
