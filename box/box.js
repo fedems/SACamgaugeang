@@ -46,200 +46,52 @@
 			am4core.useTheme(am4themes_animated);
 			// Themes end
             
-            var chartMin = -50;
-            var chartMax = 100;
+            // create chart
+            var chart = am4core.create(divid, am4charts.GaugeChart);
+            chart.hiddenState.properties.opacity = 0; // this makes initial fade in effect
 
-            var data = {
-              score: 52.7,
-              gradingData: [
-                {
-                  title: "Malo",
-                  color: "#ee1f25",
-                  lowScore: -100,
-                  highScore: -20
-                },
-                {
-                  title: "Volatil",
-                  color: "#f04922",
-                  lowScore: -20,
-                  highScore: 0
-                },
-                {
-                  title: "Bajo",
-                  color: "#fdae19",
-                  lowScore: 0,
-                  highScore: 20
-                },
-                {
-                  title: "Desarrollo",
-                  color: "#f3eb0c",
-                  lowScore: 20,
-                  highScore: 40
-                },
-                {
-                  title: "Maduro",
-                  color: "#b0d136",
-                  lowScore: 40,
-                  highScore: 60
-                },
-                {
-                  title: "Sostenible",
-                  color: "#54b947",
-                  lowScore: 60,
-                  highScore: 80
-                },
-                {
-                  title: "Alto",
-                  color: "#0f9747",
-                  lowScore: 80,
-                  highScore: 100
-                }
-              ]
-            };
-            
-            /**
-            Grading Lookup
-             */
-            function lookUpGrade(lookupScore, grades) {
-              // Only change code below this line
-              for (var i = 0; i < grades.length; i++) {
-                if (
-                  grades[i].lowScore < lookupScore &&
-                  grades[i].highScore >= lookupScore
-                ) {
-                  return grades[i];
-                }
-              }
-              return null;
-            }
-
-			// Create chart instance
-			var chart = am4core.create(divid, am4charts.GaugeChart);
-            
-            chart.hiddenState.properties.opacity = 0;
-            chart.fontSize = 8;
-            chart.innerRadius = am4core.percent(80);
-            chart.resizable = true;
-                        
-            /**
-             * Normal axis
-             */
+            chart.innerRadius = -25;
 
             var axis = chart.xAxes.push(new am4charts.ValueAxis());
-            
-            axis.min = chartMin;
-            axis.max = chartMax;
+            axis.min = 0;
+            axis.max = 100;
             axis.strictMinMax = true;
-            axis.renderer.radius = am4core.percent(80);
-            axis.renderer.inside = true;
-            axis.renderer.line.strokeOpacity = 0.1;
-            axis.renderer.ticks.template.disabled = false;
-            axis.renderer.ticks.template.strokeOpacity = 1;
-            axis.renderer.ticks.template.strokeWidth = 0.5;
-            axis.renderer.ticks.template.length = 5;
-            axis.renderer.grid.template.disabled = true;
-            axis.renderer.labels.template.radius = am4core.percent(15);
-            axis.renderer.labels.template.fontSize = "0.9em";
+            axis.renderer.grid.template.stroke = new am4core.InterfaceColorSet().getFor("background");
+            axis.renderer.grid.template.strokeOpacity = 0.3;
 
-            /**
-             * Axis for ranges
-             */
+            var colorSet = new am4core.ColorSet();
 
-            var axis2 = chart.xAxes.push(new am4charts.ValueAxis());
-            
-            axis2.min = chartMin;
-            axis2.max = chartMax;
-            axis2.strictMinMax = true;
-            axis2.renderer.labels.template.disabled = true;
-            axis2.renderer.ticks.template.disabled = true;
-            axis2.renderer.grid.template.disabled = false;
-            axis2.renderer.grid.template.opacity = 0.5;
-            axis2.renderer.labels.template.bent = true;
-            axis2.renderer.labels.template.fill = am4core.color("#000");
-            axis2.renderer.labels.template.fontWeight = "bold";
-            axis2.renderer.labels.template.fillOpacity = 0.3;
+            var range0 = axis.axisRanges.create();
+            range0.value = 0;
+            range0.endValue = 50;
+            range0.axisFill.fillOpacity = 1;
+            range0.axisFill.fill = colorSet.getIndex(0);
+            range0.axisFill.zIndex = - 1;
 
-            /**
-            Ranges
-            */
+            var range1 = axis.axisRanges.create();
+            range1.value = 50;
+            range1.endValue = 80;
+            range1.axisFill.fillOpacity = 1;
+            range1.axisFill.fill = colorSet.getIndex(2);
+            range1.axisFill.zIndex = -1;
 
-            for (let grading of data.gradingData) {
-              var range = axis2.axisRanges.create();
-              range.axisFill.fill = am4core.color(grading.color);
-              range.axisFill.fillOpacity = 0.8;
-              range.axisFill.zIndex = -1;
-              range.value = grading.lowScore > chartMin ? grading.lowScore : chartMin;
-              range.endValue = grading.highScore < chartMax ? grading.highScore : chartMax;
-              range.grid.strokeOpacity = 0;
-              range.stroke = am4core.color(grading.color).lighten(-0.1);
-              range.label.inside = true;
-              range.label.text = grading.title.toUpperCase();
-              range.label.inside = true;
-              range.label.location = 0.5;
-              range.label.inside = true;
-              range.label.radius = am4core.percent(10);
-              range.label.paddingBottom = -5; // ~half font size
-              range.label.fontSize = "0.9em";
-            }
-
-            var matchingGrade = lookUpGrade(data.score, data.gradingData);
-
-            /**
-             * Label 1
-             */
-
-            var label = chart.radarContainer.createChild(am4core.Label);
-            label.isMeasured = false;
-            label.fontSize = "3em";
-            label.x = am4core.percent(50);
-            label.paddingBottom = 15;
-            label.horizontalCenter = "middle";
-            label.verticalCenter = "bottom";
-            //label.dataItem = data;
-            label.text = data.score.toFixed(1);
-            //label.text = "{score}";
-            label.fill = am4core.color(matchingGrade.color);
-
-            /**
-             * Label 2
-             */
-
-            var label2 = chart.radarContainer.createChild(am4core.Label);
-            label2.isMeasured = false;
-            label2.fontSize = "2em";
-            label2.horizontalCenter = "middle";
-            label2.verticalCenter = "bottom";
-            label2.text = matchingGrade.title.toUpperCase();
-            label2.fill = am4core.color(matchingGrade.color);
-
-
-            /**
-             * Hand
-             */
+            var range2 = axis.axisRanges.create();
+            range2.value = 80;
+            range2.endValue = 100;
+            range2.axisFill.fillOpacity = 1;
+            range2.axisFill.fill = colorSet.getIndex(4);
+            range2.axisFill.zIndex = -1;
 
             var hand = chart.hands.push(new am4charts.ClockHand());
-            hand.axis = axis2;
-            hand.innerRadius = am4core.percent(55);
-            hand.startWidth = 8;
-            hand.pin.disabled = true;
-            hand.value = data.score;
-            hand.fill = am4core.color("#444");
-            hand.stroke = am4core.color("#000");
 
-            hand.events.on("positionchanged", function(){
-              label.text = axis2.positionToValue(hand.currentPosition).toFixed(1);
-              var value2 = axis.positionToValue(hand.currentPosition);
-              var matchingGrade = lookUpGrade(axis.positionToValue(hand.currentPosition), data.gradingData);
-              label2.text = matchingGrade.title.toUpperCase();
-              label2.fill = am4core.color(matchingGrade.color);
-              label2.stroke = am4core.color(matchingGrade.color);  
-              label.fill = am4core.color(matchingGrade.color);
-            })
-            
-//            setInterval(function() {
-//                var value = chartMin + Math.random() * (chartMax - chartMin);
-//                hand.showValue(value, 1000, am4core.ease.cubicOut);
-//            }, 2000);
+            // using chart.setTimeout method as the timeout will be disposed together with a chart
+            chart.setTimeout(randomValue, 2000);
+
+            function randomValue() {
+                hand.showValue(Math.random() * 100, 1000, am4core.ease.cubicOut);
+                chart.setTimeout(randomValue, 2000);
+            }
+        
 		  } 
           else {            	
             	var foundIndex = Ar.findIndex(x => x.id == id);
