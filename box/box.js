@@ -379,5 +379,5 @@
 			console.log("onCustomWidgetDestroy");
         }
     }
-    customElements.define("com-fd-googlesheetsstock", Box);
+    customElements.define("com-fd-amchartsgauge", Box);
 })();
