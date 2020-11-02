@@ -323,7 +323,7 @@
                 shadowRoot.appendChild(div);
 
                 const css = document.createElement('div');
-                css.innerHTML = '<style>#container_' + divid + ' {width: 100%; height: 500px;}</style>'
+                css.innerHTML = '<style>#container_' + divid + ' {width: 100%; height: 300px;}</style>'
                 shadowRoot.appendChild(css);
 
                 var mapcanvas_divstr = shadowRoot.getElementById('container_' + divid);
@@ -379,5 +379,5 @@
 			console.log("onCustomWidgetDestroy");
         }
     }
-    customElements.define("com-fd-googlesheetsstock", Box);
+    customElements.define("com-fd-amchartsgauge", Box);
 })();
